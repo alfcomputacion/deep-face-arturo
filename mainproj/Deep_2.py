@@ -6,6 +6,7 @@ import imutils
 import time
 import os
 import json
+from utils.vericar_DeepFace import verify
 # import pywhatkit
 
 # Declaramos la deteccion de rostros
@@ -35,16 +36,17 @@ while True:
         rostro = auxFrame[y:y+h, x:x+w]
         rostro = cv2.resize(rostro, (150, 150), interpolation=cv2.INTER_CUBIC)
         # cv2.imwrite(personPath + '/al153168_{}.jpg'.format(count), rostro)
+        cv2.imwrite('test.jpg', rostro)
         dfs = DeepFace.find(
             img_path=rostro, db_path='../pics', enforce_detection=False, silent=True)
-        source_x = dfs[0]['source_x']
-        source_y = dfs[0]['source_y']
-        # candidate = dfs.iloc[0]
-        # label = candidate["identity"]
-        # print(rostro)
 
+        # verify('test.jpg', dfs[0]['identity'][0])
+
+        print(dfs[0]['VGG-Face_cosine'][0])
+
+        print("This is the vgg-cosine " + str(dfs[0]['VGG-Face_cosine'][0]))
         #! **************EXTRACT as FUNCTION****************************************
-        if dfs and source_y.any() and source_x.any():
+        if dfs[0]['VGG-Face_cosine'][0] < 0.15:
             jsonpath = dfs[0]['identity'][0].split('/')[1]
             # print(jsonpath)
             # currentPath = os.path.abspath(os.getcwd())
@@ -59,10 +61,10 @@ while True:
                     print('nombre:' + information['Alumno'][0]['nombre'])
                     print('telefono:' +
                           str(information['Alumno'][0]['tel_contacto']))
+
                     lista.append(str(information['Alumno'][0]['matricula']))
         #! ******************************************************
 
-        # count = count + 1
     cv2.imshow('frame', frame)
     # time.sleep(1)
     # Identificar rostro (fs = DeepFace.find)
@@ -76,7 +78,7 @@ while True:
     # cv2.imshow(" Deteccion ", faces)
 
     # Leemos el teclado
-    t = cv2.waitKey(5)
+    t = cv2.waitKey(1)
     if t == 27:
         break
 

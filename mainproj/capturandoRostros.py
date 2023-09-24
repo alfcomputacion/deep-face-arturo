@@ -3,7 +3,7 @@ import os
 import imutils
 
 
-personName = 'BLACK_DIAZ'
+personName = 'JOE_ROSAS'
 # ruta donde hayas almacenado folder del alumno
 dataPath = 'C:/Users/Jose Rosas/Desktop/PROYECT_2023'
 personPath = dataPath + '/' + personName
@@ -39,7 +39,7 @@ while True:
     cv2.imshow('frame', frame)
 
     k = cv2.waitKey(1)
-    if k == 1 or count >= 100:
+    if k == 1 or count >= 1000:
         break
 
 cap.release()
