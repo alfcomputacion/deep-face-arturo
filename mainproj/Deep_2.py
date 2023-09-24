@@ -12,9 +12,9 @@ from utils.vericar_DeepFace import verify
 # Declaramos la deteccion de rostros
 
 # Recortar el rostro
-# cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # cap = cv2.VideoCapture('entrada_1.mp4')
-cap = cv2.VideoCapture('./VIDEO/entrada.mp4')
+# cap = cv2.VideoCapture('./VIDEO/entrada.mp4')
 
 faceClassif = cv2.CascadeClassifier(
     cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
@@ -43,11 +43,13 @@ while True:
         # verify('test.jpg', dfs[0]['identity'][0])
 
         print(dfs[0]['VGG-Face_cosine'][0])
-
+        name = 'Face Detected'
         print("This is the vgg-cosine " + str(dfs[0]['VGG-Face_cosine'][0]))
         #! **************EXTRACT as FUNCTION****************************************
         if dfs[0]['VGG-Face_cosine'][0] < 0.15:
+
             jsonpath = dfs[0]['identity'][0].split('/')[1]
+            name = dfs[0]['identity'][0].split('\\')[-1].split('/')[0]
             # print(jsonpath)
             # currentPath = os.path.abspath(os.getcwd())
             filepath = os.path.join('../' + jsonpath + '/data.json')
@@ -59,10 +61,13 @@ while True:
                     print('matricula:' +
                           str(information['Alumno'][0]['matricula']))
                     print('nombre:' + information['Alumno'][0]['nombre'])
+
                     print('telefono:' +
                           str(information['Alumno'][0]['tel_contacto']))
 
                     lista.append(str(information['Alumno'][0]['matricula']))
+        cv2.putText(frame, name, (x, y - 10),
+                    cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
         #! ******************************************************
 
     cv2.imshow('frame', frame)

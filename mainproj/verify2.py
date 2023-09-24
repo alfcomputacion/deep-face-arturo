@@ -72,6 +72,7 @@ while True:
                         lista.append(
                             str(information['Alumno'][0]['matricula']))
             #! ******************************************************
+            cv2.namedWindow("Image")
             cv2.imshow('frame', frame)
     skip += 1
     cv2.imshow('frame', frame)
