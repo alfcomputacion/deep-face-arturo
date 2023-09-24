@@ -11,8 +11,9 @@ import json
 # Declaramos la deteccion de rostros
 
 # Recortar el rostro
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+# cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # cap = cv2.VideoCapture('entrada_1.mp4')
+cap = cv2.VideoCapture('./VIDEO/entrada.mp4')
 
 faceClassif = cv2.CascadeClassifier(
     cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
