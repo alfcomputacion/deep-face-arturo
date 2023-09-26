@@ -3,12 +3,16 @@ from deepface import DeepFace
 import cv2
 import mediapipe as mp
 import imutils
-import time
+
 import os
 import json
 from utils.vericar_DeepFace import verify
+from utils.createjson import create_json, append_json
+from datetime import datetime
+alumno = {"Alumno": []}
 # import pywhatkit
-
+today = "Lista_alumnos_" + str(datetime.today().day) + "_" + \
+    str(datetime.today().month) + "_" + str(datetime.today().year) + "_.json"
 # Declaramos la deteccion de rostros
 
 # Recortar el rostro
@@ -20,6 +24,7 @@ faceClassif = cv2.CascadeClassifier(
     cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 # count = 0
 lista = []
+create_json(today, alumno)
 while True:
 
     ret, frame = cap.read()
@@ -29,14 +34,14 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     auxFrame = frame.copy()
 
-    faces = faceClassif.detectMultiScale(gray, 1.3, 10)
+    faces = faceClassif.detectMultiScale(gray, 1.1, 10)
 
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 3)
         rostro = auxFrame[y:y+h, x:x+w]
-        rostro = cv2.resize(rostro, (150, 150), interpolation=cv2.INTER_CUBIC)
+        rostro = cv2.resize(rostro, (250, 250), interpolation=cv2.INTER_CUBIC)
         # cv2.imwrite(personPath + '/al153168_{}.jpg'.format(count), rostro)
-        cv2.imwrite('test.jpg', rostro)
+        # cv2.imwrite('test.jpg', rostro)
         dfs = DeepFace.find(
             img_path=rostro, db_path='../pics', enforce_detection=False, silent=True)
 
@@ -58,13 +63,18 @@ while True:
                 if str(information['Alumno'][0]['matricula']) not in lista:
                     # print('alumno ya entro a la escuela')
                     # print(rostro)
-                    print('matricula:' +
-                          str(information['Alumno'][0]['matricula']))
-                    print('nombre:' + information['Alumno'][0]['nombre'])
+                    matricula = str(information['Alumno'][0]['matricula'])
+                    nombre = str(information['Alumno'][0]['nombre'])
+                    apellidos = str(information['Alumno'][0]['apellidos'])
+                    tel_contacto = str(
+                        information['Alumno'][0]['tel_contacto'])
 
-                    print('telefono:' +
-                          str(information['Alumno'][0]['tel_contacto']))
+                    print('matricula:' + matricula)
+                    print('nombre:' + nombre)
 
+                    print('telefono:' + tel_contacto)
+                    append_json(today, matricula, nombre,
+                                apellidos, tel_contacto)
                     lista.append(str(information['Alumno'][0]['matricula']))
         cv2.putText(frame, name, (x, y - 10),
                     cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
@@ -77,6 +87,7 @@ while True:
     # Extraer de dfs la matricula y agregarla a lista_identificados si no lo está
     # Mando mensaje
     # Leer JSON y obtenere numero
+    #
     # pywhatkit.sendwhatmsg("+910123456789", "Hi", 13, 30)
 
     # Mostramos los fotogramas
