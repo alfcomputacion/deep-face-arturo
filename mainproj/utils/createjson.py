@@ -89,5 +89,9 @@ def delobject(name="jose"):
 # delobject('Jose')
 # append_statistics('asistencia.json', 100, 90, 15)
 # create_json("lista223.json", alumno)
-print(datetime.date.today())
-print(str(datetime.date.today().year))
+# print(datetime.date.today())
+# print(str(datetime.date.today().year))
+
+alumno = {"Alumno": []}
+print(type(alumno))
+print(type(alumno['Alumno']))
