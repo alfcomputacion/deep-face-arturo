@@ -11,4 +11,5 @@ for i, v in alumnos_list.items():
 
     # print(i)
     print(v[0]['tel_contacto'])
-    # pywhatkit.sendwhatmsg_instantly("+910123456789", "Hi")
+    number = str(v[0]['tel_contacto'])
+    pywhatkit.sendwhatmsg_instantly("+" + number, "Hi, from sendText")
