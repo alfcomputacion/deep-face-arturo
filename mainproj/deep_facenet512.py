@@ -1,14 +1,15 @@
 # Importamos las librerias
-from deepface import DeepFace
-import cv2
-import mediapipe as mp
-import imutils
-
-import os
-import json
-from utils.vericar_DeepFace import verify
-from utils.createjson import create_json, append_json
 from datetime import datetime
+from utils.createjson import create_json, append_json
+from utils.vericar_DeepFace import verify
+import json
+import os
+import imutils
+import mediapipe as mp
+import cv2
+from deepface import DeepFace
+DeepFace.allocateMemory()
+
 alumno = {"Alumno": []}
 # import pywhatkit
 today = "Lista_alumnos_" + str(datetime.today().day) + "_" + \
@@ -83,8 +84,8 @@ while True:
             cv2.putText(frame, name, (x, y - 10),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 1)
             #! ******************************************************
-        except KeyError:
-            print(KeyError)
+        except Exception as e:
+            print(e)
 
     cv2.imshow('frame', frame)
     # time.sleep(1)

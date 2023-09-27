@@ -1,0 +1,18 @@
+{
+  "Alumno": [
+    {
+      "matricula": "1512345",
+      "nombre": "Jose single pic",
+      "apellidos": "Rosas",
+      "tel_contacto": "13234233555",
+      "hora": "2023-09-27 09:48:21.681009"
+    },
+    {
+      "matricula": "15123213345",
+      "nombre": "Jose",
+      "apellidos": "Rosas",
+      "tel_contacto": "13235039494",
+      "hora": "2023-09-27 09:49:06.105759"
+    }
+  ]
+}
