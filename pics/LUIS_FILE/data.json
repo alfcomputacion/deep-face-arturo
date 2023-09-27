@@ -1,0 +1,10 @@
+{
+    "Alumno": [
+        {
+            "matricula": 32323232,
+            "nombre": "Luis",
+            "apellidos": "Hernandez",
+            "tel_contacto": 1526696680
+        }
+    ]
+}
