@@ -43,7 +43,7 @@ while True:
         # cv2.imwrite(personPath + '/al153168_{}.jpg'.format(count), rostro)
         # cv2.imwrite('test.jpg', rostro)
         dfs = DeepFace.find(
-            img_path=rostro, db_path='../pics', enforce_detection=False, silent=True)
+            img_path=rostro, db_path='../pics', enforce_detection=False, silent=True, model_name='Facenet512')
 
         # verify('test.jpg', dfs[0]['identity'][0])
 

@@ -1,15 +1,18 @@
 import json
 import pywhatkit
-
+import time
 alumnos_list = []
 
 with open('../Lista_alumnos_25_9_2023_.json', 'r') as lista:
     alumnos_list = json.load(lista)
     # print(alumnos_list)
 
-for i, v in alumnos_list.items():
 
-    # print(i)
-    print(v[0]['tel_contacto'])
-    number = str(v[0]['tel_contacto'])
-    pywhatkit.sendwhatmsg_instantly("+" + number, "Hi, from sendText")
+for i in range(0, len(alumnos_list['Alumno'])):
+    print(alumnos_list['Alumno'][i]['matricula'])
+
+    number = str(alumnos_list['Alumno'][i]['tel_contacto'])
+    nombre = alumnos_list['Alumno'][i]['nombre']
+    pywhatkit.sendwhatmsg_instantly(
+        "+" + number, 'Hi, ' + nombre + ' was in today.')
+    time.sleep(5)
